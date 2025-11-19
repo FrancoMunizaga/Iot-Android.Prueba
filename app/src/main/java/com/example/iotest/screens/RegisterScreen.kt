@@ -16,15 +16,20 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.iotest.nav.Route
+import com.example.iotest.ui.theme.IOTESTTheme
 
 
 @Composable
 fun RegisterScreen(nav: NavController) {
     var name by remember { mutableStateOf("") }
+    var apellido by remember { mutableStateOf(value = "")}
+    var telefono by remember { mutableStateOf(value = "") }
     var email by remember { mutableStateOf("") }
     var pwd by remember { mutableStateOf("") }
     Column(Modifier.fillMaxSize().padding(20.dp), verticalArrangement =
@@ -32,6 +37,10 @@ fun RegisterScreen(nav: NavController) {
         Text("Crear cuenta", fontSize = 22.sp)
         OutlinedTextField(name, { name = it }, label = { Text("Nombre") })
         Spacer(Modifier.height(8.dp))
+        OutlinedTextField(value = apellido, {apellido = it}, label = {Text( "Apellido") })
+        Spacer(Modifier.height(height = 8.dp))
+        OutlinedTextField(value = telefono, {telefono = it}, label = {Text("Telefono") })
+        Spacer(Modifier.height(height = 8.dp))
         OutlinedTextField(email, { email = it }, label = { Text("Correo") })
         Spacer(Modifier.height(8.dp))
         OutlinedTextField(pwd, { pwd = it }, label = { Text("Contraseña") })
@@ -40,5 +49,17 @@ fun RegisterScreen(nav: NavController) {
             Modifier.fillMaxWidth()) {
             Text("Crear cuenta")
         }
+    }
+}
+
+
+
+@Preview(showBackground = true)
+@Composable
+fun RegisterScreenPreview() {
+    IOTESTTheme {
+        RegisterScreen(
+            nav = rememberNavController()
+        )
     }
 }
