@@ -25,6 +25,9 @@ import com.example.iotest.screens.HomeScreen
 import com.example.iotest.screens.LoginScreen
 import com.example.iotest.screens.RegisterScreen
 
+// Splash screen display duration in milliseconds
+private const val SPLASH_DISPLAY_DURATION = 1500L
+
 @Preview(showBackground = true)
 
 @Composable
@@ -52,15 +55,15 @@ fun SplashLottie(onFinish: () -> Unit) {
         LottieCompositionSpec.RawRes(R.raw.ps1carga)
     )
     
-    // Animate the composition
+    // Animate the composition with infinite iterations for smooth looping
     val progress by animateLottieCompositionAsState(
         composition = composition,
         iterations = LottieConstants.IterateForever
     )
 
-    // Navigate to next screen after delay
+    // Navigate to next screen after configured delay
     LaunchedEffect(Unit) {
-        kotlinx.coroutines.delay(1500L)
+        kotlinx.coroutines.delay(SPLASH_DISPLAY_DURATION)
         onFinish()
     }
 
@@ -71,7 +74,7 @@ fun SplashLottie(onFinish: () -> Unit) {
     ) {
         LottieAnimation(
             composition = composition,
-            progress = { progress },
+            progress = progress,
             modifier = Modifier
                 .size(size = 256.dp)
                 .align(Alignment.Center)
