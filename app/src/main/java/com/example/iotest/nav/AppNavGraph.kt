@@ -18,7 +18,6 @@ import androidx.navigation.compose.rememberNavController
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
-import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.iotest.R
 import com.example.iotest.screens.HomeScreen
@@ -54,12 +53,6 @@ fun SplashLottie(onFinish: () -> Unit) {
     val composition by rememberLottieComposition(
         LottieCompositionSpec.RawRes(R.raw.ps1carga)
     )
-    
-    // Animate the composition with infinite iterations for smooth looping
-    val progress by animateLottieCompositionAsState(
-        composition = composition,
-        iterations = LottieConstants.IterateForever
-    )
 
     // Navigate to next screen after configured delay
     LaunchedEffect(Unit) {
@@ -74,7 +67,7 @@ fun SplashLottie(onFinish: () -> Unit) {
     ) {
         LottieAnimation(
             composition = composition,
-            progress = progress,
+            iterations = LottieConstants.IterateForever,
             modifier = Modifier
                 .size(size = 256.dp)
                 .align(Alignment.Center)
