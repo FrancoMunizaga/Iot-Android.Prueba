@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-        <!-- Optional: Legacy theme for backward compatibility -->
+        <!-- Main App Theme for Compose (Material3) -->
         <style name="Theme.IOTEST" parent="android:Theme.Material.Light.NoActionBar" />
 
         <!-- Splash Screen Theme -->
         <style name="Theme.App.Splash" parent="Theme.SplashScreen">
             <item name="windowSplashScreenAnimatedIcon">@drawable/ps1logo</item>
             <item name="windowSplashScreenBackground">@color/purple_700</item>
-            <item name="postSplashScreenTheme">@style/Theme.App.Splash</item>
+            <!-- CRITICAL: Must point to final theme, not to itself to avoid loop -->
+            <item name="postSplashScreenTheme">@style/Theme.IOTEST</item>
         </style>
 </resources>

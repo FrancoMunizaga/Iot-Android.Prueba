@@ -4,22 +4,28 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.LottieConstants
+import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.iotest.R
 import com.example.iotest.screens.HomeScreen
 import com.example.iotest.screens.LoginScreen
 import com.example.iotest.screens.RegisterScreen
+
+// Splash screen display duration in milliseconds
+private const val SPLASH_DISPLAY_DURATION = 1500L
 
 @Preview(showBackground = true)
 
@@ -28,7 +34,7 @@ fun AppNavGraph() {
     val nav = rememberNavController()
     NavHost(navController = nav, startDestination = "splash") {
         composable("splash") {
-            SplashScreen {
+            SplashLottie {
                 nav.navigate(Route.Login.path) {
                     popUpTo("splash") { inclusive = true }
                 }
@@ -42,10 +48,15 @@ fun AppNavGraph() {
 
 
 @Composable
-fun SplashScreen(onFinish: () -> Unit) {
+fun SplashLottie(onFinish: () -> Unit) {
+    // Load the Lottie composition from raw resources
+    val composition by rememberLottieComposition(
+        LottieCompositionSpec.RawRes(R.raw.ps1carga)
+    )
 
+    // Navigate to next screen after configured delay
     LaunchedEffect(Unit) {
-        kotlinx.coroutines.delay(250L)
+        kotlinx.coroutines.delay(SPLASH_DISPLAY_DURATION)
         onFinish()
     }
 
@@ -54,11 +65,11 @@ fun SplashScreen(onFinish: () -> Unit) {
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.primary)
     ) {
-        Icon(
-            painter = painterResource(id = R.drawable.ps1logo),
-            contentDescription = null,
+        LottieAnimation(
+            composition = composition,
+            iterations = LottieConstants.IterateForever,
             modifier = Modifier
-                .size(size = 128.dp)
+                .size(size = 256.dp)
                 .align(Alignment.Center)
         )
     }

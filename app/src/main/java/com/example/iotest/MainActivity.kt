@@ -10,6 +10,12 @@ import com.example.iotest.ui.theme.IOTESTTheme
 
 class MainActivity : ComponentActivity() {
     private var keepSplash = true // condición para mantener el splash visible
+    
+    companion object {
+        // Native splash screen duration in milliseconds
+        private const val NATIVE_SPLASH_DURATION = 1200L
+    }
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         // 1) Instalar Splash antes de super.onCreate
         val splash = installSplashScreen()
@@ -18,7 +24,7 @@ class MainActivity : ComponentActivity() {
         // 2) Simular/realizar inicialización breve (1–2 s)
         lifecycleScope.launchWhenCreated {
             // Aquí podrías leer token, preferencias, etc.
-            kotlinx.coroutines.delay(1200L)
+            kotlinx.coroutines.delay(NATIVE_SPLASH_DURATION)
             keepSplash = false
         }
         // 3) Contenido Compose
